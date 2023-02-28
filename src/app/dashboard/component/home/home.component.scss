@@ -1,0 +1,74 @@
+:host ::ng-deep .cards  {
+    justify-content: center;
+    .card {
+        &:nth-of-type(1) .p-card {
+            background-color: #6500ffb8;
+            margin-bottom: 1rem;
+        }
+        &:nth-of-type(2) .p-card {
+            background-color: #00B1FF;
+            margin-bottom: 1rem;
+        }
+        &:nth-of-type(3) .p-card {
+            background-color: #FF5F00;
+            margin-bottom: 1rem;
+        }
+        &:nth-of-type(4) .p-card {
+            background-color: #FF0000;
+        }
+        &:nth-of-type(5) .p-card {
+            background-color: #67A515;
+        }
+    }
+    .p-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        @media (max-width: 577px) {
+            flex-direction: column;
+        }
+        .p-card-header {
+            padding: 1.25rem;
+            padding-bottom: 2rem;
+            @media (max-width: 577px) {
+                padding: .5rem;
+            }
+            h2 {
+                @media (max-width: 577px) {
+                    font-size: 2.25rem !important;
+                }
+            }
+        }
+        .p-card-body {
+            @media (max-width: 577px) {
+                padding: 0;
+            }
+            .p-card-content {
+                @media (max-width: 577px) {
+                    padding: .5rem;
+                }
+            }
+            h2 {
+                @media (max-width: 577px) {
+                    font-size: 2.25rem !important;
+                }
+            }
+        }
+    }
+}
+
+
+
+:host::ng-deep canvas {
+        border-right: 1px solid #eee;
+        display: inline-block !important;
+    }
+
+
+.cards, .chart-result {
+    background: #ffffff;
+        color: #495057;
+        box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+        border-radius: 6px;
+}

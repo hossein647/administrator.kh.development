@@ -1,0 +1,28 @@
+<div class="grid grid-nogutter mb-5 m-6 home overflow-y-auto">
+    <div class="col-12 mt-5 cards-result">
+        <div class="cards grid grid-nogutter p-3 overflow-hidden">
+            <p-card class="card col-12 p-2 md:col-6 " 
+                    *ngFor="let card of cards; let i = index;"
+                    [ngClass]="(i === 3 || i === 4 ) ? 'lg:col-6' : 'lg:col-4'">
+                <ng-template pTemplate="header">
+                    <h2 class="text-4xl lg:text-5xl text-white text-center" [ngClass]="">{{card.title}}</h2>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <h2 class="text-4xl lg:text-5xl text-white text-center"
+                        [ngClass]="{'lg:inline-block': card.title === 'فروش'}">
+                        {{card.num}}
+                    </h2>
+                    <h5 class="text-white text-center"
+                        [ngClass]="{'lg:inline-block mr-1': card.title === 'فروش'}">
+                        {{card.title === 'فروش' ? 'تومان' : '' }}
+                    </h5>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+    <div class="col-12 chart-result my-5 p-3">
+        <div class="card">
+            <p-chart type="bar" [data]="chartData" [responsive]="true"></p-chart>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<nav class="navbar flex justify-content-between align-items-center py-3 px-5">
+    <div class="hamburger flex">
+        <div 
+            type="text" 
+            (click)="showSidebar($event)" 
+            class="pi pi-bars text-4xl">
+        </div>
+    </div>
+    <div class="left-nav">
+        <p-splitButton 
+                icon="pi pi-user" 
+                styleClass="p-button-sm p-button-text"
+                [model]="content">
+        </p-splitButton>
+    </div>
+</nav>

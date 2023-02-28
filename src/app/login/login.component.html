@@ -1,0 +1,62 @@
+<div class="login overflow-hidden">
+    <div class="grid grid-nogutter justify-content-center align-items-center h-screen">
+        <div class="card col-10 sm:col-8 md:col-7 lg:col-5 px-2 py-5 overflow-hidden relative">
+            <div class="grid grid-nogutter flex flex-column align-items-center">
+                <div class="col-12 sm:col-9" [hidden]="!showMobileNumberInput">
+                        <input 
+                            type="text"
+                            pInputText 
+                            pKeyFilter="int" 
+                            class="w-full" 
+                            placeholder="شماره موبایل"
+                            maxlength="11"
+                            [disabled]="submitDisabled"
+                            (focus)="focusEnterMobile(input)" 
+                            (focusout)="focusOutEnterMobile(input)" 
+                            (input)="changeValueEnterMobile(input.value)"
+                            (keyup.enter)="onSubmit(input)"
+                            #input>
+                            <small *ngIf="error" class="text-red-400 font-bold">{{ errorLength }}</small>
+                            <small *ngIf="errorGetCode" class="text-red-400 font-bold">{{ errorGetCodeMessage }}</small>
+                            
+                </div>
+                <div class="col-12 sm:col-10 xl:col-8" [hidden]="showMobileNumberInput">
+                    <app-auth-sms 
+                        *ngIf="!showMobileNumberInput"
+                        (sendRequest)="onLogin($event)">
+                    </app-auth-sms>
+                    <div 
+                        class="arrow-back absolute" 
+                        *ngIf="!showMobileNumberInput"
+                        (click)="editMobileNumber()">
+                        <i class="pi pi-arrow-right text-2xl"></i>
+                    </div>
+                    <small *ngIf="error" class="text-red-400 text-center pt-3 font-bold"
+                            [class.block]="error">
+                        {{ errorMessageLogin }}
+                    </small>
+                </div>
+                <div class="box-button col-5 md:col-4 mt-5" [hidden]="!showMobileNumberInput">
+                    <button 
+                        pButton 
+                        type="submit" 
+                        class="btn text-sm block w-full font-bold text-center px-0"
+                        (click)="onSubmit(input)"
+                        [disabled]="submitDisabled">
+                        دریافت کد تایید
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="box-button col-5 md:col-4 mt-5">
+    <button pButton type="submit" class="btn  block w-full font-bold text-center px-0" [ngClass]="{
+                                    'text-sm': showMobileNumberInput,
+                                'text-base': !showMobileNumberInput}"
+        (click)="showMobileNumberInput ? onSubmit(input.value) : false">
+        {{showMobileNumberInput ? 'دریافت کد تایید' : counter | verifyOtpTimer}}
+    </button>
+</div> -->

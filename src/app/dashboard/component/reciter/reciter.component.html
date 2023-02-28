@@ -1,0 +1,34 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6 lg:w-7">
+    <button 
+        pButton 
+        type="button" 
+        class="p-button-raised p-button-sm text-sm mb-1 w-8rem block p-button-success"
+        (click)="createReciter()" >
+            ذخیره
+    </button>
+</div>
+<div class="reciter grid grid-nogutter mb-6 mt-1 mx-4 md:mx-6 p-3 lg:w-7 overflow-hidden">
+    <h4 class="col-12 text-center text-2xl p-2">ایجاد قاری</h4>
+    <div class="wrapper mx-auto col-12 sm:col-9 lg:col-8" *ngFor="let reciter of reciters; let i = index">
+        <input 
+            class="p-inputtext-sm w-full my-2" 
+            type="text" 
+            pInputText
+            name="input" 
+            [placeholder]="reciter.placeholder"
+            [(ngModel)]="reciter.value"
+            #inputRef="ngModel"
+            required/>
+            <small 
+                class="text-red-500" 
+                *ngIf="i === 0 ? (inputRef.invalid && (inputRef.dirty || inputRef.touched)) : ''">
+                نام انگلیسی خالی است
+            </small>
+            <small 
+                class="text-red-500" 
+                *ngIf="i === 1 ? (inputRef.invalid && (inputRef.dirty || inputRef.touched)) : ''">
+                نام فارسی خالی است
+            </small>
+    </div>
+</div>
+<p-toast position=top-left></p-toast>

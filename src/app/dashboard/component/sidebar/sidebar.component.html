@@ -1,0 +1,99 @@
+<div
+    class="drawer p-sidebar-md" 
+    [style]="{ width: '100%'}" 
+    position="right">
+    <div class="content">
+        <div class="title mt-3 text-center lg:text-right lg:pr-3">
+            <a 
+                routerLink="/" 
+                (click)="onSelectedList('/')" 
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold no-underline">
+                خوشه
+            </a>
+        </div>
+        <div class="menu">
+            <ul class="
+                    list
+                    flex flex-column align-items-center md:block">
+                <li 
+                    class="list-item app list-none  w-full 
+                        flex align-items-center justify-content-center 
+                        sm:flex-column
+                        lg:flex-row lg:justify-content-start"
+                    [ngClass]="{ 'selected': selected === 'app' }"
+                    (click)="onSelectedList('app')">
+                    <i class="pi pi-mobile text-2xl" 
+                            [ngClass]="selected === 'app' ? 'lg:mr-5' : ''"></i>
+                    <a class="
+                            list-item-link no-underline font-bold lg:mr-5
+                            hidden sm:block sm:text-xs md:text-sm lg:text-base mt-2">
+                        اپلیکیشن
+                    </a>
+                </li>
+                <li class="list-item site list-none w-full">
+                    <div class="main flex
+                            justify-content-center lg:justify-content-start 
+                            align-items-center lg:align-items-end"
+                            (click)="onDropdownSite()">
+                        <div class="  
+                                mr-4 lg:mr-0
+                                sm:flex sm:flex-column sm:align-items-center
+                                lg:flex-row">
+                            <i class="pi pi-desktop text-2xl" 
+                                [ngClass]="selected === 'site' ? 'lg:mr-5' : ''"></i>
+                            <a class="
+                                    list-item-link no-underline font-bold lg:mr-5
+                                    hidden sm:block sm:text-xs md:text-sm mt-2 lg:text-base ">
+                                سایت
+                            </a>
+                        </div>
+                        <div class="mr-2 sm:mr-3 arrow-down">
+                            <i class="pi text-xs pi-chevron-down 
+                                transition-all transition-ease-in-out transition-duration-100" 
+                                [ngClass]="openDropdown ? 'arrow-down' : 'arrow-left'">
+
+                            </i>
+                        </div>
+                    </div>
+                    <ul class="sub-list flex-column align-items-center"
+                        [ngClass]="openDropdown ? 'flex md:block' : 'hidden'">
+                        <li class="
+                                list-item app list-none  w-full 
+                                flex align-items-center justify-content-center 
+                                    sm:flex-column
+                                lg:flex-row lg:justify-content-start"
+                            [ngClass]="{ 'selected': selected === item.enTitle }"
+                            *ngFor="let item of items; let i = index;"
+                            (click)="onSelectedList(item.enTitle)">
+                            <i [ngClass]="[item.icon, selected === item.enTitle ? 'lg:mr-5' : '']" class="text-2xl"></i>
+                            <a 
+                                class="
+                                    list-item-link no-underline font-bold lg:mr-5
+                                    hidden sm:block sm:text-xs md:text-sm mt-2 lg:text-base ">
+                                {{item.faTitle}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li 
+                    class="
+                            list-item upload list-none  w-full 
+                            flex align-items-center justify-content-center 
+                            sm:flex-column
+                            lg:flex-row lg:justify-content-start" 
+                            [ngClass]="{ 'selected': selected === list.labelEN }"
+                    (click)="onSelectedList(list.labelEN)"
+                    *ngFor="let list of noneLists">
+                    <i 
+                        class="pi text-2xl" 
+                        [ngClass]="[list.icon, selected === list.labelEN ? 'lg:mr-5': '']"></i>
+                    <a 
+                        class="list-item-link no-underline font-bold lg:mr-5
+                                hidden sm:block sm:text-xs md:text-sm lg:text-base mt-2">
+                        {{list.labelFA}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

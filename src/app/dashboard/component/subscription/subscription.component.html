@@ -1,0 +1,39 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6 lg:w-7">
+    <button 
+        pButton 
+        type="button" 
+        class="p-button-raised p-button-success p-button-sm text-sm mb-1 w-8rem block"
+        (click)="newSubscription()">
+        ذخیره
+    </button>
+</div>
+
+<div class="grid grid-nogutter mx-4 lg:mx-6 mt-1">
+    <div class="subscription col-12 lg:col-8 p-3">
+        <div class="grid grid-nogutter">
+            <h4 class="col-12 text-center text-2xl p-2"> اشتراک ویژه جدید</h4>
+            <div class="wrapper mx-auto col-12 sm:col-9 lg:col-8">
+                <input 
+                    class="p-inputtext-sm w-full my-2" 
+                    type="text" 
+                    [(ngModel)]="newAmount" 
+                    [pKeyFilter]="'int'" 
+                    pInputText
+                    placeholder="تومان" 
+                    #inputNewAmount="ngModel"
+                    required/>
+                    <small 
+                        class="col-12 text-red-500"
+                        *ngIf="inputNewAmount.invalid && (inputNewAmount.touched || inputNewAmount.dirty)">
+                        مقدار اشتراک خالی است.
+                    </small>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-4 py-3 h-10rem lg:px-3 lg:py-0 lg:h-auto" *ngIf="currentAmmount">
+        <div class="flex justify-content-center align-items-center h-full bg-purple-400 border-round-md">
+            <span class="text-white font-semibold text-3xl">{{currentAmmount}} تومان</span>
+        </div>
+    </div>
+</div>
+<p-toast position=top-left></p-toast>

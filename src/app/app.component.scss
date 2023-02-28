@@ -1,0 +1,31 @@
+::ng-deep .p-component-overlay {
+    // display: none !important;
+}
+
+::ng-deep .p-button:focus {
+    box-shadow: none !important;
+}
+
+
+/*  ############     customize p-toast-message component primeng     ################  */
+
+::ng-deep .p-toast {
+    @media(max-width: 460px) {
+        width: auto !important;
+    }
+}
+::ng-deep .p-toast-detail {
+    margin: 0 !important;
+}
+::ng-deep .pi-check {
+    font-size: 1.5rem !important;
+}
+::ng-deep .p-toast-top-left {
+    @media (max-width: 460px) {
+        left: 10px !important;
+    }
+}
+
+::ng-deep .p-toast-summary {
+    margin-right: 10px;
+}

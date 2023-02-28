@@ -1,0 +1,18 @@
+.profile {
+    background: #ffffff;
+    color: #495057;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+        0 1px 1px 0 rgb(0 0 0 / 14%),
+        0 1px 3px 0 rgb(0 0 0 / 12%);
+    border-radius: 6px;
+    @media (min-width: 280px) and (max-width: 460px) {
+        width: auto !important;
+        margin-right: 4px !important;
+        margin-left: 4px !important;
+    }    
+    @media (min-width: 461px) and (max-width: 767px) {
+        width: auto !important;
+        margin-right: 20px !important;
+        margin-left: 20px !important;
+    }
+}

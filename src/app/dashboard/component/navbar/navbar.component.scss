@@ -1,0 +1,50 @@
+.navbar {
+    background-color: white;
+    .hamburger {
+        color: #000000a6;
+        transition: all .2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.10);
+        }
+    }
+}
+:host ::ng-deep .p-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: white;
+    border: 1px solid #eee;
+    span {
+        font-size: 1.25rem;
+    }
+}
+
+:host ::ng-deep .p-splitbutton {
+    display: flex;
+    align-items: baseline;
+    .p-splitbutton-defaultbutton {
+        &:active, &:hover {
+            border-radius: 0 6px 6px 0 !important;
+        }
+    }
+    .p-splitbutton-menubutton {
+        &:active, &:hover {
+            border-radius: 6px 0 0 6px;
+        }
+    }
+    .pi {
+        color: #00000066;
+        font-weight: 600;
+        
+    }
+    .pi-user{
+        font-size: 1.25rem !important;
+    }
+    .p-menuitem-text {
+        margin-right: 1rem;
+        font-size: .825rem !important;
+    }
+    .p-menuitem-icon {
+        font-size: 1rem !important;
+    }
+}

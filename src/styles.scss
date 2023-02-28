@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    // overflow: hidden;
+}
+
+
+body, body .p-component {
+    direction: rtl;
+    font-family: Vazirmatn, sans-serif !important;
+    font-feature-settings: "ss01";
+}
+
+// ::ng-deep .pi {
+//     color: #000000a6 !important;
+// }

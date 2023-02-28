@@ -1,0 +1,56 @@
+.login {
+    background-color: #e3e7eb;
+}
+.card {
+    background: #ffffff;
+    color: #495057;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+        0 1px 1px 0 rgb(0 0 0 / 14%),
+        0 1px 3px 0 rgb(0 0 0 / 12%);
+    border-radius: 6px;
+    height: auto;
+}
+
+:host ::ng-deep .p-inputmask {
+    width: 100%;
+}
+
+.btn {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    // &:hover {
+    //     background-color: white;
+    //     color: black;
+    // }
+}
+
+.box-button {
+    @media (max-width: 319px){
+        width: 56% !important;
+    }
+    @media (min-width: 320px) and (max-width: 577px) {
+        width: 48% !important;
+    }
+}
+
+.verify-input {
+    width: 30px;
+    @media (min-width: 360px) {
+        width: 40px;
+    }
+    @media (min-width: 460px) and (max-width: 577px) {
+        width: 45px;
+    }
+}
+
+
+.arrow-back {
+    top: 15px;
+    right: 20px;
+    &:hover {
+        cursor: pointer;
+    }
+    i {
+        color: #757575c4 !important
+    }
+}

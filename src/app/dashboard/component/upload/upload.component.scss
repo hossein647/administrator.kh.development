@@ -1,0 +1,163 @@
+.toolbar {
+    margin: 0 20px 6px;
+    // margin-right: 20px;
+        // margin-left: 20px;
+    
+        @media (min-width: 768px) {
+            // margin-left: 200px;
+        }
+    
+        @media (min-width: 992px) {
+            width: 60%;
+        }
+}
+
+
+
+:host::ng-deep .p-tabview {
+    .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+        box-shadow: none;
+    }
+    .p-button-icon-left {
+        margin: 0;
+    }
+}
+
+:host ::ng-deep .p-tabview-nav li {
+    width: 33.33%;
+    a {
+        display: grid;
+        .p-tabview-title {
+            text-align: center;
+        }
+    }
+}
+
+:host ::ng-deep .p-fileupload-buttonbar {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+   p-button {
+       &.p-element:nth-of-type(1) {
+            @media(min-width: 458px) {
+                margin: 0 3px;
+            }
+            .p-element {
+                // background-color: #22c55ea6;
+                // border-color: #22c55ea6;
+            }
+            // margin: 0 6px;
+       }
+       &.p-element:nth-of-type(2) {
+        .p-element {
+            // background-color: #ff0000a3;
+            // border-color: #ff0000a3;
+        }
+       }
+
+   }
+    .p-button-success, .p-button-primary, .p-button-danger {
+        padding: 5px !important;
+    }
+    .p-fileupload-choose {
+        width: 140px !important;
+        margin-bottom: 3px;
+    }
+    .pi-upload {
+        // width: 140px !important;
+        margin-bottom: 3px;
+        // margin: 0 6px;
+    }
+    .p-ripple.p-element {
+        margin-right: 0;
+    }
+    p-button.p-element {
+        width: 140px !important;
+        margin-bottom: 3px;
+        > .p-ripple {
+            margin-right: 0 !important;
+            width: 100%;
+        }
+    }
+}
+
+
+:host ::ng-deep .p-fileupload-row  {
+
+    border-bottom: 1px solid #eee;
+    &:last-child {
+        border-bottom: none
+    }
+    > div {
+        padding: .5rem 1rem;
+    }
+    .p-button-icon-only {
+        width: 2rem;
+        padding: .25rem 0 ;
+    }
+}
+
+.card {
+    background: #ffffff;
+    color: #495057;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+        0 1px 1px 0 rgb(0 0 0 / 14%),
+        0 1px 3px 0 rgb(0 0 0 / 12%);
+    border-radius: 6px;
+   
+}
+
+:host ::ng-deep .p-dropdown, :host ::ng-deep .p-fileupload {
+    width: 100%;
+}
+
+:host ::ng-deep .p-fileupload-content {
+    display: none;
+}
+
+.size {
+    direction: ltr;
+}
+
+.files:hover {
+    cursor: pointer;
+}
+
+
+:host ::ng-deep .p-progressbar-label {
+    height: 1.25rem;
+}
+
+
+:host ::ng-deep .p-element.uploaded {
+    .p-progressbar-value {
+        background-color: #73b10e;
+    }
+}
+
+:host ::ng-deep .p-element.error {
+    .p-progressbar-value {
+        background-color: #e10f0f;
+    }
+}
+
+:host ::ng-deep .disabled-upload {
+    pointer-events: none !important;
+    background: #22C55E !important;
+    border: 1px solid #22C55E !important;
+    opacity: .6 !important;
+
+}
+
+:host ::ng-deep .disabled-cancel {
+    pointer-events: none !important;
+    background-color: #EF4444 !important;
+    border-color: #EF4444 !important;
+    opacity: .6 !important;
+}
+
+:host ::ng-deep .p-tabview-nav {
+    border-radius: 6px !important;
+}

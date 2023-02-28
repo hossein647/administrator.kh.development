@@ -1,0 +1,33 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6 md:mx-6">
+    <button pButton type="button" class="p-button-raised p-button-sm text-sm mb-1 w-8rem block"
+        [ngClass]="{'p-button-secondary': i === 1, 'p-button-success ml-1': i === 0}"
+        [disabled]="i === 0 ? disabledButton : !disabledButton"
+        (click)=" i === 0 ? saveMainPage() : editMainPage()" *ngFor="let btn of buttons; let i = index">
+        {{btn}}
+    </button>
+</div>
+<div class="main-page mb-6 mt-1 mx-4 md:mx-6" #card>
+    <div class="card grid grid-nogutter py-5 px-4 md:px-5">
+        <div class="col-12" [formGroup]="mainForm">
+            <div 
+                class="title grid grid-nogutter mb-3" 
+                *ngFor="let mainpage of mainPages; let i = index;">
+                <h3 class="col-12 sm:col-5 lg:col-3 p-2">{{mainpage.titleFA}}</h3>
+                <input 
+                    class="col-12 sm:col-7 lg:col-9 p-inputtext-sm p-2" 
+                    type="text"
+                    [formControlName]="mainpage.titleEN"
+                    pInputText/>
+            </div>
+            <div class="grid grid-nogutter">
+                <h3 class="col-12 sm:col-5 lg:col-3 p-2"></h3>
+                <small
+                    class="text-red-500"
+                    *ngIf="!isOneFieldFill() && mainForm.touched">
+                    حداقل یکی از فیلدها باید مقدار داشته باشد.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position="top-left"></p-toast>

@@ -1,0 +1,22 @@
+<div class="grid grid-nogutter flex justify-content-between" dir="ltr" #parentVerify>
+    <div 
+        class="col-fixed verify-input " 
+        *ngFor="let item of [1,1,1,1,1,1]; 
+        let i = index">
+            <input 
+            type="text" 
+            pInputText 
+            pKeyFilter="int" 
+            class="w-full block text-center" 
+            maxlength="1"
+            (input)="changeVerifyInput(parentVerify, i)" 
+            #verifyCode>
+    </div>
+</div>
+<div class="box-button col-5 md:col-4 mt-5 mx-auto">
+    <button 
+        pButton 
+        class="btn text-base block w-full font-bold text-center px-0" >
+        {{counter | verifyOtpTimer}}
+    </button>
+</div>

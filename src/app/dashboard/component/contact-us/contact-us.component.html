@@ -1,0 +1,33 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6">
+    <button 
+            pButton 
+            type="button" 
+            class="p-button-raised p-button-sm text-sm mb-1 w-8rem block"
+            [ngClass]="{'p-button-secondary': i === 1, 'p-button-success ml-1': i === 0}"
+            (click)=" i === 0 ? saveContact() : editContact()"
+            [disabled]="i === 0 ? disabledButton : !disabledButton"
+            *ngFor="let btn of buttons; let i = index">
+            {{btn}}
+    </button>
+</div>
+<div class="contact-us mb-6 mt-1 mx-4 md:mx-6 overflow-hidden">
+    <div class="card grid grid-nogutter px-4 md:px-5">
+        <div class="col-12 p-5" [formGroup]="contactForm">
+            <div class="title grid grid-nogutter mb-3" *ngFor="let item of items; let i = index;">
+                <h4 class="col-12 sm:col-3 lg:col-3 p-2">{{item.titleFA}}</h4>
+                <input 
+                    class="col-12 sm:col-9 lg:col-9 p-inputtext-sm p-2" 
+                    type="text" 
+                    pInputText
+                    [formControlName]="item.titleEN"/>
+            </div>
+            <div class="grid grid-nogutter">
+                <h3 class="col-12 sm:col-5 lg:col-3 p-2"></h3>
+                <small class="text-red-500" *ngIf="isEmptyForm() && contactForm.touched">
+                    حداقل یکی از فیلدها باید مقدار داشته باشد.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position=top-left></p-toast>

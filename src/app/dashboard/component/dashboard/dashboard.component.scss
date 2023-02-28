@@ -1,0 +1,16 @@
+.dashboard {
+    background-color: white;
+    display: flex;
+
+    .content {
+        background-color: #e3e7eb;
+    }
+}
+
+::ng-deep .p-component-overlay {
+    // display: none !important;
+}
+
+::ng-deep .p-button:focus {
+    box-shadow: none !important;
+}

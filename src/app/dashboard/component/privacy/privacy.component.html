@@ -1,0 +1,76 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6 lg:w-7">
+    <button 
+        pButton type="button" class="p-button-raised p-button-sm text-sm mb-1 w-8rem block ml-1" 
+        [ngClass]="{
+                'p-button-success': newPrivacy, 
+                'p-button-primary': !newPrivacy}"
+        (click)="newPrivacy ? savePrivacy() : newPrivacyCode()">
+        {{newPrivacy ? 'ذخیره' : 'جدید'}}
+    </button>
+    <button pButton type="button" class="p-button-raised p-button-sm text-sm mb-1 w-8rem block p-button-danger ml-1"
+        (click)="cancel()">
+        انصراف
+    </button>
+</div>
+<div 
+    class="privacy grid grid-nogutter mb-6 mt-1 mx-4 md:mx-6 p-3 lg:w-7 overflow-hidden"
+    *ngIf="newPrivacy else table">
+    <div class="wrapper col-12">
+        <textarea 
+            class="p-inputtext-sm p-2 w-full" 
+
+            [rows]="10" 
+            pInputTextarea
+            placeholder="توضیحات"
+            [(ngModel)]="description" 
+            #textarea="ngModel"
+            required>
+        </textarea>
+        <small class="text-red-500"
+            *ngIf="textarea.invalid && (textarea.dirty || textarea.touched)">
+            فیلد توضیحات خالی است.
+        </small>
+    </div>
+</div>
+<div class="spinner flex justify-content-center mt-5">
+    <p-progressSpinner 
+        *ngIf="showProgressCircular" 
+        [style]="{width: '55px', 
+        height: '55px'}" 
+        styleClass="custom-spinner"
+        strokeWidth="8" 
+        fill="var(--surface-ground)" 
+        animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<ng-template #table>
+    <div class="card-privacy my-1 mx-4 md:mx-6">
+        <p-table [columns]="cols" [value]="tableData" [scrollable]="true" responsiveLayout="stack"
+            [breakpoint]="'960px'">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" class="block text-center">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <tr>
+                    <td 
+                        *ngFor="let q of columns;" 
+                        class="block text-center overflow-hidden" 
+                        [innerHTML]="
+                            q.field === '#' 
+                            ? rowIndex + 1 
+                            : q.field === 'remove'
+                            ? trashIcon
+                            : rowData[q.field]"
+                        (click)="q.field === 'remove' ? onRemovePrivacy(rowData['_id']) : ''">
+                        
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</ng-template>
+<p-toast position=top-left></p-toast>

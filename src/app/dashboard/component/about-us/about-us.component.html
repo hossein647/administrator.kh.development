@@ -1,0 +1,34 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6">
+    <button pButton type="button" class="p-button-raised p-button-sm text-sm mb-1 w-8rem block"
+        [ngClass]="{'p-button-secondary': i === 1, 'p-button-success ml-1': i === 0}"
+        [disabled]="i === 0 ? disabled : !disabled"
+        (click)=" i === 0 ? saveAboutUs() : editAboutUs()" *ngFor="let btn of buttons; let i = index">
+        {{btn}}
+    </button>
+</div>
+<div class="about-us mb-6 mt-1 mx-4 md:mx-6 overflow-hidden">
+    <div class="card grid grid-nogutter py-5 px-4 md:px-5">
+        <div class="col-12">
+            <div class="title grid grid-nogutter mb-2">
+                <h4 class="col-12 md:col-3 lg:col-3 text-base md:text-xl p-2">درباره ما</h4>
+                <textarea 
+                    class="col-12 md:col-9 lg:col-9 p-inputtext-sm p-2" 
+                    [cols]="10"
+                    [rows]="6"
+                    [disabled]="disabled"
+                    pInputTextarea
+                    [(ngModel)]="description" 
+                    #textarea="ngModel"
+                    required>
+                </textarea>
+            </div>
+            <div class="title grid grid-nogutter mb-2">
+                <h4 class="col-12 md:col-3 lg:col-3 text-base md:text-xl p-2"></h4>
+                <small class="text-red-500" *ngIf="textarea.invalid && (textarea.dirty || textarea.touched)">
+                    فیلد توضیحات خالی است.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position="top-left"></p-toast>

@@ -1,0 +1,31 @@
+:host ::ng-deep .p-card-content {
+    overflow: hidden;
+}
+
+:host ::ng-deep td,
+:host ::ng-deep th,
+:host ::ng-deep p-inputSwitch {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+:host ::ng-deep .p-inputswitch {
+    height: 1.5rem !important;
+}
+
+:host ::ng-deep .p-card-content {
+    padding-bottom: 0 !important;
+    overflow: inherit;
+}
+
+:host ::ng-deep .p-paginator .p-dropdown {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+}
+
+:host ::ng-deep .p-inputtext.ng-invalid.ng-touched {
+    border: 1px solid red !important;
+}

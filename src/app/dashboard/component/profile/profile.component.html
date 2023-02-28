@@ -1,0 +1,47 @@
+<div class="profile overflow-hidden mt-8 mx-4 md:mx-6 w-full sm:w-10 lg:w-8">
+    <div class="card grid grid-nogutter md:px-5">
+        <div class="col-12 p-1 sm:p-2">
+            <h3 class="col-12 text-center p-3 pb-5 text-gray-600">تغییر شماره تلفن</h3>
+            <div class="title grid grid-nogutter pb-5 flex align-items-center justify-content-evenly">
+                <input 
+                    class="col-12 sm:col-5 lg:col-5 p-button-sm p-2" 
+                    type="text" 
+                    pInputText 
+                    [disabled]="!editable"
+                    [(ngModel)]="mobileNumber" 
+                    #input/>
+                <div class="">
+                    <button 
+                        pButton 
+                        type="submit" 
+                        class="p-button-sm px-3 lg:px-5 py-2 text-sm font-bold mt-3 sm:mt-0 ml-1 p-button-success" 
+                        (click)="
+                            submitLabel === 'آپدیت'
+                            ? onUpdateUserMobile(input.value)
+                            : onSendSMS(input.value)"                        
+                            [disabled]="sendedSMS">
+                        {{submitLabel}}
+                    </button>
+                    <button 
+                        pButton 
+                        type="submit" 
+                        class="p-button-sm px-3 lg:px-5 py-2 text-sm font-bold mt-3 sm:mt-0 p-button-secondary mr-1"
+                        (click)="cancelUpdate()">
+                        انصراف
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 sm:col-9 lg:col-7 mx-auto">
+                <app-auth-sms 
+                    (onChangeCounter)="getCounter($event)" 
+                    *ngIf="verifyInput" 
+                    (sendRequest)="onCheckVerfyCode($event)">
+                </app-auth-sms>
+                <small *ngIf="errorGetCode" class="text-red-400 font-bold text-center block w-full mt-3">
+                    {{ errorGetCodeMessage }}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position=top-left></p-toast>

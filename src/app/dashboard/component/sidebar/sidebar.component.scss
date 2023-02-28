@@ -1,0 +1,101 @@
+
+:host ::ng-deep .drawer{
+    position: static;
+    border-left: 1px solid #eee;
+    padding: 0rem;
+    @media (min-width: 992px) {
+        // padding-right: 1rem;
+    }
+    .content {
+        overflow: hidden;
+    }
+    a, h1 {
+        color: #000000A6;
+    }
+
+    .list-item:not(.list-item.site), .main {
+        margin-bottom: 2rem;
+        @media (max-width: 577px) {
+            margin-bottom: 2.5rem !important;
+            // padding-top: 1rem;
+            // padding-bottom: 1rem;
+        }
+        @media (min-width: 992px) {
+            margin-bottom: 2rem !important;
+        }
+    }
+
+    .list-item {
+        padding: 8px 0;
+        @media (min-width: 992px) {
+            padding: .5rem 1rem .5rem 0;
+        }
+        &:not(.selected) {
+            border-right: 0 solid red;
+            transition: all .2s ease-in-out;
+        }
+        &.selected {
+            transition: all .2s ease-in-out;
+            border-right: 4px solid red;
+            border-bottom: 0;
+            .pi {
+                font-weight: 600;
+            }
+            a,
+            .pi {
+                color: red;
+                transition: all .2s ease-in-out;
+            }
+        }
+        &.site {
+            @media (min-width: 992px) {
+                padding: 0 1rem 0 0
+            }
+        }
+        .sub-list {
+            > .list-item {
+                @media (min-width: 992px) {
+                    padding: .5rem 1rem .5rem 0;
+                }
+                &.selected {
+                    @media (min-width: 992px) {
+                        padding-right: .5rem;
+                        // margin-right: .25rem;
+                    }
+                }
+            }
+        }
+    }
+    .list-item:hover {
+        cursor: pointer;
+        &:not(.list-item.site) {
+            background-color: #cecece45;
+        }
+    }
+    .list-item-link,
+    .pi:not(.pi-chevron-down) {
+        font-size: 1.25rem;
+    }
+    .menu {
+        margin-top: 80px;
+    }
+    .list-item  {
+        
+        
+    }
+}
+
+.arrow-down i {
+    font-weight: 700;
+}
+
+.arrow-down {
+    transform: rotate(0);
+}
+.arrow-left {
+    transform: rotate(90deg);
+}
+
+:host ::ng-deep .pi {
+    color: #000000a6;
+}

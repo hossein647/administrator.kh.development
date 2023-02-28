@@ -1,0 +1,9 @@
+<div class="dashboard">
+    <div class="sidebar overflow-hidden" [ngStyle]="{ width: display ? '20%' : '0'}">
+        <app-sidebar [display]="display" [currentRoute]="currentRoute"></app-sidebar>
+    </div>
+    <div class="content overflow-hidden" [ngStyle]="{ width: display ? '80%' : '100%', minHeight: '100vh'}">
+        <app-navbar (sidebarState)="stateSidebar()"></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
+</div>

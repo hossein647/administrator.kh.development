@@ -1,0 +1,121 @@
+<div class="submit text-center mt-6 flex flex-wrap mx-4 md:mx-6 lg:w-7">
+    <button 
+        pButton 
+        type="button" 
+        class="p-button-raised p-button-sm text-sm mb-1 w-8rem block ml-1"
+        [ngClass]="{
+                'p-button-success': newDiscountForm, 
+                'p-button-primary': !newDiscountForm}"
+        (click)="newDiscountForm ? saveDiscount() : newDiscountCode()">
+        {{newDiscountForm ? 'ذخیره' : 'جدید'}}
+    </button>
+    <button 
+        pButton 
+        type="button" 
+        class="p-button-raised p-button-sm text-sm mb-1 w-8rem block p-button-danger ml-1"
+
+        (click)="cancel()">
+        انصراف
+    </button>
+</div>
+<div 
+    class="discount grid grid-nogutter mb-6 mt-1 mx-4 md:mx-6 p-3 lg:w-7 overflow-hidden"
+    *ngIf="newDiscountForm else read">
+    <h4 class="col-12 text-center text-2xl p-2">ایجاد کد تخفیف</h4>
+    <div class="wrapper mx-auto col-12 sm:col-9 lg:col-8">
+        <input 
+            class="p-inputtext-sm w-full my-2" 
+            type="text" 
+            #inputCode="ngModel"
+            pInputText 
+            [placeholder]="discount.placeholderCode"
+            [(ngModel)]="discount.code"
+            required/>
+            <small 
+                class="text-red-500"
+                *ngIf="inputCode.invalid && (inputCode.dirty || inputCode.touched)">
+                    کد تخفیف خالی است.
+            </small>
+    </div>
+    <div class="wrapper mx-auto col-12 sm:col-9 lg:col-8">
+        <input 
+            class="p-inputtext-sm w-full my-2" 
+            [(ngModel)]="discount.expire"
+            type="text" 
+            #inputExpire="ngModel"
+            pInputText 
+            [pKeyFilter]="'int'"
+            [placeholder]="discount.placeholderExpire"
+            required/>
+            <small 
+                class="text-red-500"
+                *ngIf="inputExpire.invalid && (inputExpire.dirty || inputExpire.touched)">
+                    تعداد روز خالی است.
+            </small>
+    </div>
+    <div class="wrapper mx-auto col-12 sm:col-9 lg:col-8">
+        <input 
+            class="p-inputtext-sm w-full my-2" 
+            [(ngModel)]="discount.price"
+            type="text" 
+            #inputPrice="ngModel"
+            pInputText 
+            [pKeyFilter]="'int'"
+            [placeholder]="discount.placeholderPrice"
+            required/>
+            <small 
+                class="text-red-500"
+                *ngIf="inputPrice.invalid && (inputPrice.dirty || inputPrice.touched)">
+                    مبلغ تخفیف خالی است.
+            </small>
+    </div>
+</div>
+<div class="spinner flex justify-content-center mt-5">
+    <p-progressSpinner 
+        *ngIf="showProgressCircular" 
+        [style]="{width: '55px', 
+        height: '55px'}" 
+        styleClass="custom-spinner" 
+        strokeWidth="8" 
+        fill="var(--surface-ground)"
+        animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<ng-template #read>
+    <div class="card-question mt-1 mx-4 md:mx-6">
+        <p-table 
+                [columns]="cols" 
+                [value]="tableData" 
+                [scrollable]="true" 
+                responsiveLayout="stack" 
+                [breakpoint]="'960px'">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" class="block text-center">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <tr>
+                    <td 
+                        *ngFor="let q of columns;" 
+                        class="block text-center overflow-hidden"
+                        [innerHTML]="
+                            q.field === '#' 
+                            ? rowIndex + 1 
+                            : q.field === 'expire'
+                            ? (+rowData[q.field] | shamsiDate)
+                            : q.field === 'price'
+                            ? rowData['price'] + ' تومان'
+                            : q.field === 'remove'
+                            ? trashIcon
+                            : rowData[q.field]"
+                        (click)="q.field === 'remove' ? onRemoveDiscount(rowData['code']) : ''">
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</ng-template>
+<p-toast position=top-left></p-toast>
