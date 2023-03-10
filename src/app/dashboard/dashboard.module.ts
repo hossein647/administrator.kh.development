@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DashboardRoutingModule } from './dashboard-routing.module';
-
 import { HttpClientModule } from '@angular/common/http';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
@@ -29,7 +27,6 @@ import { ByteConverterPipe } from './component/upload/byte-converter.pipe';
 import { ShareModule } from '../shared/modules/share.module';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TabViewModule } from 'primeng/tabview';
-import { AudioComponent } from './component/audio/audio.component';
 import { SafeHTMLPipe } from './component/application/safe-html.pipe';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -42,29 +39,9 @@ import { PrivacyComponent } from './component/privacy/privacy.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
+
 @NgModule({
-    declarations: [
-        SidebarComponent,
-        HomeComponent,
-        NavbarComponent,
-        ApplicationComponent,
-        QuestionComponent,
-        ContactUsComponent,
-        AboutUsComponent,
-        MainPageSiteComponent,
-        ProfileComponent,
-        DashboardComponent,
-        UploadComponent,
-        ReciterComponent,
-        ByteConverterPipe,
-        AudioComponent,
-        SafeHTMLPipe,
-        DiscountComponent,
-        ShamsiDatePipe,
-        SubscriptionComponent,
-        PrivacyComponent,
-    ],
-    providers: [MessageService, ByteConverterPipe],
     imports: [
         ShareModule,
         CommonModule,
@@ -85,6 +62,27 @@ import { ReactiveFormsModule } from '@angular/forms';
         InputSwitchModule,
         PaginatorModule,
         ReactiveFormsModule,
-    ]
+    ],
+    declarations: [
+        SidebarComponent,
+        HomeComponent,
+        NavbarComponent,
+        ApplicationComponent,
+        QuestionComponent,
+        ContactUsComponent,
+        AboutUsComponent,
+        MainPageSiteComponent,
+        ProfileComponent,
+        DashboardComponent,
+        UploadComponent,
+        ReciterComponent,
+        ByteConverterPipe,
+        SafeHTMLPipe,
+        DiscountComponent,
+        ShamsiDatePipe,
+        SubscriptionComponent,
+        PrivacyComponent,
+    ],
+    providers: [MessageService, ByteConverterPipe],
 })
 export class DashboardModule { }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { QuestionService } from './question.service';
@@ -20,7 +20,7 @@ export class QuestionComponent implements OnInit {
   showProgressCircular = false;
   confirmDialog = false;
   questionId: string;
-  limit: number = 5;
+  limit: number = 25;
   page: number = 1;
   totalDocs: number;
   totalPages: number;

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class ApplicationComponent implements OnInit {
   confirmDialog = false;
   newReciterENInput: string;
   newReciterFAInput: string;
-  limit: number = 5;
+  limit: number = 25;
   page: number = 1;
   totalDocs: number;
   totalPages: number;
@@ -123,7 +123,6 @@ export class ApplicationComponent implements OnInit {
     return [
       { field: 'num', header: '#' },
       { field: 'mobile', header: 'موبایل' },
-      { field: 'super', header: 'کاربر ویژه' },
     ]
   }
 
@@ -199,17 +198,19 @@ export class ApplicationComponent implements OnInit {
   
   
   getUsers(page: number, limit: number) {
+    this.blockUser = [];
+    this.superUser = [];
+    this.tableData = [];
     this.applicationService.usersPaginate(page, limit).subscribe(
       res => {          
-        if (res?.users) {
+        if (res?.users) {          
           this.tableData = res.users.docs;
           this.totalDocs = res.users.totalDocs;
           this.totalPages = res.users.totalPages
-          console.log(res.users);
           
           this.tableData.forEach(user => {
             this.blockUser.push(user.block);            
-            this.superUser.push(user.super);
+            this.superUser.push(user.super);            
           })
         }
       }
@@ -221,9 +222,7 @@ export class ApplicationComponent implements OnInit {
   getAudios(reciter: string, page: number, limit: number) {      
     this.applicationService.audiosPaginate(reciter, page, limit).subscribe(
       res => {
-        if (res) {  
-          console.log('res audios : ', res);
-                  
+        if (res) {                    
           if (res?.audios) {            
             this.tableData = res.audios.docs;
             this.totalPages = res.audios.totalPages;
@@ -242,9 +241,7 @@ export class ApplicationComponent implements OnInit {
 
 
 
-  onTDTableClick(event: any, data: any, rowIndex: number) {
-    console.log('onTDTableClick : ', event, data, rowIndex);
-    
+  onTDTableClick(event: any, data: any, rowIndex: number) {    
     this.dataToRemove = { ...data, event, rowIndex}
 
     this.initConfirmDialog(event, data);
@@ -294,9 +291,7 @@ export class ApplicationComponent implements OnInit {
 
 
   showDetailsReciter(event: any, data: any) {
-    const detailsReciter = event.target.classList.contains('td') && data?.surah > 0; 
-    console.log('detailsReciter : ', detailsReciter);
-       
+    const detailsReciter = event.target.classList.contains('td') && data?.surah > 0;        
     if (detailsReciter) return this.getAudios(this.selectedReciter, this.page, this.limit)
   }
 
@@ -306,9 +301,7 @@ export class ApplicationComponent implements OnInit {
     const numberOfSurah = surah(this.dataToRemove.surah)?.code;
     if (numberOfSurah) {
       this.applicationService.removeAudio(+numberOfSurah, this.selectedReciter).subscribe(
-        res => {
-          console.log('remove audio res : ', res);
-          
+        res => {          
           if (res.audio) {
             if (prevRoute) this.backToPrevRoute();
             else this.getAudios(this.selectedReciter, this.page, this.limit);
@@ -372,9 +365,7 @@ export class ApplicationComponent implements OnInit {
 
 
   onUpdateReciter() {    
-    if (this.newReciterENInput && this.newReciterFAInput) {
-      console.log(this.newReciterENInput && this.newReciterFAInput);
-      
+    if (this.newReciterENInput && this.newReciterFAInput) {      
       this.showProgressCircular = true;    
       this.applicationService.renameFolderReciter(this.selectedReciter, { en: this.newReciterENInput, fa: this.newReciterFAInput })
       .subscribe(
@@ -397,9 +388,7 @@ export class ApplicationComponent implements OnInit {
 
 
   onRemoveReciter() {
-    this.showProgressCircular = true;
-    console.log(this.selectedReciter);
-    
+    this.showProgressCircular = true;    
     if (this.selectedReciter) {
       this.applicationService.removeReciter(this.selectedReciter).subscribe(
         res => {        
@@ -426,11 +415,9 @@ export class ApplicationComponent implements OnInit {
 
 
   onConfirm() {
-    // this.showProgressCircular = true;
     let prevRoute = false;
     if (this.tableData.length === 1) prevRoute = true;
     
-    console.log(this.label);
     if (this.label.column === 'edit') return this.onUpdateReciter();
     if (this.label.column === 'remove') {
       if (this.tabIndex === 0 && this.currentRoute.endsWith('app')) return this.onRemoveReciter();

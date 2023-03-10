@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LoginResolver } from './login/login.resolver';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { 
@@ -22,7 +21,7 @@ const routes: Routes = [
   },
   { 
     path: '**', 
-    component: NotFoundComponent 
+    redirectTo: 'login' 
   },
 ];
 

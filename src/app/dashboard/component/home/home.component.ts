@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
     this.getReciters();
     this.getTranslations();
     this.getTafsirs();
-    this.getUsers();
+    this.getSuperUsers();
     
     this.initCards();
     
@@ -137,14 +137,13 @@ export class HomeComponent implements OnInit {
 
 
 
-  getUsers() {
+  getSuperUsers() {
     this.applicationService.superUsers().subscribe(
       res => {                
         if (res?.users) {
-        this.usersLength = res.users.length;        
-        this.total = this.usersLength * this.price;
+          this.usersLength = res.users.length;        
+          this.total = this.usersLength * this.price;
           this.initCards(); // detect change value all cards after render view
-        // this.cards = [...this.cards, this.cards[0].num = res.users.length];
         }
       }
     )

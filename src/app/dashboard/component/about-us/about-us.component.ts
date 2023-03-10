@@ -28,9 +28,7 @@ export class AboutUsComponent implements OnInit {
   }
 
 
-  saveAboutUs() {
-    console.log(this.description);
-    
+  saveAboutUs() {    
     if (this.description) {
       this.contactService.create({ id: this.contactId, aboutUs: this.description }).subscribe(
         res => {
@@ -43,7 +41,6 @@ export class AboutUsComponent implements OnInit {
         }
         )
       } else {
-      console.log('else');
       this.textArea.control.markAsTouched();
     }
   }

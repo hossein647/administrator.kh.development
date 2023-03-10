@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
       this.submitDisabled = true;
     this.loginService.getVerifyCode({ mobile: mobile.value }).subscribe(
       res => {
-        console.log('get verify code : ', res);
         mobile.focus();
         this.submitDisabled = false;
         if (res.otpPass) this.showMobileNumberInput = false;
@@ -96,19 +95,19 @@ export class LoginComponent implements OnInit {
     let data;
     
     if (sms) data = { ...sms, mobile: this.mobileNumber}    
-    console.log('sms : ', sms, data);
-    this.loginService.login(data).subscribe(
-      res => {
-        
+    this.loginService.login(data).subscribe({
+      next: (res) => {
         if (res.statusCode === 200 && res.admin) {
-          console.log('res login and redirect to dashboard', res);
           this.router.navigate(['dashboard'])
-        } else {
-          this.error = true;
-          this.errorMessageLogin = res.message;
         }
+      },
+      error: (res) => {
+        this.error = true;
+        if (res?.error?.statusCode === 406) this.errorMessageLogin = res?.error?.message;
+        if (res?.error?.statusCode === 403) this.errorMessageLogin = res?.error?.message;
+        else this.errorMessageLogin = res.message;
       }
-    )
+    })
   }
 
 

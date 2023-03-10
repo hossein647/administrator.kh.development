@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { fullSureh } from 'src/app/shared/helper/verse';
 import { UploadService } from './upload.service';
 
@@ -7,7 +8,7 @@ import { UploadService } from './upload.service';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit, AfterViewInit {
+export class UploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
   content: any;
   files: any[] = [];
@@ -15,7 +16,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
   accept: string = '.zip'
   suar: any[] = [];
   reciters: any[] = []
-  // result: any;
   selectedReciter: string;
   selectedSurah: string;
   progressBar: number = 0;
@@ -28,15 +28,14 @@ export class UploadComponent implements OnInit, AfterViewInit {
   tafsirs: any[] = [];
   tafsirType: any[] = [ { type: 'رایگان' }, { type: 'نقدی' } ];
   selectedTab = 0;
+  subscription = new Subscription();
 
   constructor(
     private uploadService: UploadService,
     private elRef: ElementRef,
-    private renderer2: Renderer2,
   ) { 
     
   }
-  
   
   
   ngAfterViewInit(): void {
@@ -50,7 +49,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this.getReciters();
     this.suar = fullSureh();
 
-    
     this.translates = [
       { key: 'name', name: '', placeholder: 'نام ترجمه' },
       { key: 'author', author: '', placeholder: 'نام نویسنده' },
@@ -73,13 +71,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
 
   upload(event: any, data: any, keyUpload: string) {  
-    console.log(this.selectedSurah);
-    console.log(data);
     this.disabled = true;   
     this.uploadService.uploadFile(event.files[0], data, keyUpload).subscribe(
       res => {
         if (res) { 
-          console.log('res upload : ', res)         
           if (res.type === 1 && res.loaded && res.loaded) this.calculateProgress(res);
           if (res.type === 4 && res.body?.statusCode === 200) {
             this.completeUpload = true;
@@ -123,9 +118,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
 
 
-  changeDropdown(selected: any) {
-    console.log('changeDropdownsReciter :', selected);
-    
+  changeDropdown(selected: any) {    
     selected._id ? this.selectedReciter = selected : this.selectedSurah = selected;    
     this.statusToolbarUpload(this.selectedTab)
   }
@@ -152,31 +145,19 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
 
 
-  getUploadEventToLiara() {
-    console.log('component');
-    
-    this.uploadService.getProgressUploadFromLiara().subscribe(
+  getUploadEventToLiara() {    
+    this.subscription = this.uploadService.getProgressUploadFromLiara().subscribe(
       res => {
-        console.log(res)
         if (res.data) {     
-          // console.log('res liara : ', res);
           const data = JSON.parse(res.data);
-          console.log('data : ', data, typeof data, typeof data === 'number', Number.isInteger(data));
-          console.log('progressBars : ', this.result);
           this.result.liara = data;
-          console.log('progressBars : ', this.result);
-          // console.log(this.result.liara !== this.result.server, this.result.liara === this.result.server);
-          // this.result.liara = +data;
           if (this.result.liara !== this.result.server && this.result.liara !== 0 && this.result.server !== 0) {
-            console.log(this.result);
             this.result.liara = Math.ceil(this.result.liara / 2);
-            console.log(this.result);
           }
           this.progressBar = this.result.server + this.result.liara;
           
           this.errorUpload = false;
         } else {
-          console.log('errrrrror : ', res)
           if (res.type === 'error') this.errorUpload = true;
         }
       }
@@ -202,8 +183,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
 
   resetAfterUpload(): void {
-    // this.files = [];
-    // this.inputFile.value = '';
     this.selectedReciter = '';
     this.selectedSurah = '';
     this.translates[0].name = ''
@@ -263,12 +242,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
   calculateProgress(res: any) {
     const percent = Math.ceil((res.loaded / res.total * 100) / 2);
-    console.log(percent);
-    
     this.result.server = percent;
-    console.log(this.result);
     this.progressBar = this.result.server + this.result.liara;
-    console.log(this.progressBar);
     
     if (percent === 50) this.getUploadEventToLiara(); // upload to liara
   }
@@ -280,5 +255,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
     const networkingError = res?.body?.originalError?.code === 'NetworkingError';
 
     if (timeoutError || userNotFound || networkingError) this.errorUpload = true;
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

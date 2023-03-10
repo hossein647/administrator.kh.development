@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { PrivacyService } from './privacy.service';
@@ -71,7 +71,7 @@ export class PrivacyComponent implements OnInit {
 
   cancel() {
     this.newPrivacy = false;
-    this.textarea.reset();
+    this.textarea?.reset();
   }
 
 

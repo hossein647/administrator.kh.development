@@ -36,18 +36,10 @@ export class ProfileComponent implements OnInit {
 
 
 
-  // onEdit() {
-  //   this.submitLabel = 'دریافت کد';
-  //   this.disabled = false;
-  // }
-
-
-
   onSendSMS(mobile: string) {
     this.errorGetCode = false;    
     this.loginService.getVerifyCode({ mobile }).subscribe(
       res => {
-        console.log('get verify code : ', res);
         if (res.otpPass) {
           this.sendedSMS = true;
           this.verifyInput = true;
@@ -73,9 +65,7 @@ export class ProfileComponent implements OnInit {
     const newMobile = mobile;
     this.profileService.updateAdminMobile(this.oldMobileNumber, newMobile).subscribe(
       res => {
-        console.log(res);
         if (res.user) {
-          
           this.mobileNumber = res.user.mobile;
           this.oldMobileNumber = res.user.mobile;
           this.editable = false;

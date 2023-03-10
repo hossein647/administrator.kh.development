@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of, Subject } from 'rxjs';
+import { catchError, of, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SMS } from '../__interfaces/sms.interface';
 
@@ -29,9 +29,9 @@ export class LoginService {
 
 
   login(sms: SMS) {    
-    return this.http.post<SMS>(`${this.baseApi}/user/auth`, sms, { withCredentials: true })
+    return this.http.post<any>(`${this.baseApi}/user/auth`, sms, { withCredentials: true })
     .pipe(
-      catchError(err => of(err))
+      catchError(err => throwError(() => err))
     )
   }
 

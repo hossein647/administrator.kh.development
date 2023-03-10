@@ -1,15 +1,8 @@
 .toolbar {
     margin: 0 20px 6px;
-    // margin-right: 20px;
-        // margin-left: 20px;
-    
-        @media (min-width: 768px) {
-            // margin-left: 200px;
-        }
-    
-        @media (min-width: 992px) {
-            width: 60%;
-        }
+    @media (min-width: 992px) {
+        width: 60%;
+    }
 }
 
 
@@ -44,19 +37,7 @@
             @media(min-width: 458px) {
                 margin: 0 3px;
             }
-            .p-element {
-                // background-color: #22c55ea6;
-                // border-color: #22c55ea6;
-            }
-            // margin: 0 6px;
        }
-       &.p-element:nth-of-type(2) {
-        .p-element {
-            // background-color: #ff0000a3;
-            // border-color: #ff0000a3;
-        }
-       }
-
    }
     .p-button-success, .p-button-primary, .p-button-danger {
         padding: 5px !important;
@@ -66,9 +47,7 @@
         margin-bottom: 3px;
     }
     .pi-upload {
-        // width: 140px !important;
         margin-bottom: 3px;
-        // margin: 0 6px;
     }
     .p-ripple.p-element {
         margin-right: 0;

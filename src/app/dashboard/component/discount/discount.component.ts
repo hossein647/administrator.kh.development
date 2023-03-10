@@ -37,11 +37,11 @@ export class DiscountComponent implements OnInit {
 
   initForm() {
     this.discount = { 
-                      ...this.discount, 
-                      placeholderCode: 'کد تخفیف', 
-                      placeholderExpire: 'تعداد روز به عدد',
-                      placeholderPrice: 'مبلغ تخفیف به تومان',
-                    }
+      ...this.discount, 
+      placeholderCode: 'کد تخفیف', 
+      placeholderExpire: 'تعداد روز به عدد',
+      placeholderPrice: 'مبلغ تخفیف به تومان',
+    }
   }
 
   initCols() {

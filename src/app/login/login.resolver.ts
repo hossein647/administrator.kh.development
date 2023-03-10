@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { delay, map, Observable, of } from 'rxjs';
+import { map } from 'rxjs';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -19,23 +19,25 @@ export class LoginResolver implements Resolve<boolean> {
 
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    return this.loginService.hasCookie().pipe(
-      map(res => {
-        console.log('login resolver : ', res);
-        
-        const pageRoute: string = route.data['route'];  
-        console.log("page route : ", pageRoute, res?.loggedIn);
-        
-        if (res?.loggedIn) {
-          if (pageRoute === 'dashboard') return true;
-            this.router.navigate(['dashboard']);
-          return null;
-        } else {
-          if (pageRoute === 'login') return true;
-          this.router.navigate(['login']);
-          return null;
-        }
-      }),
+    return this.loginService.hasCookie()
+      .pipe(
+        map(res => {
+          const pageRoute: string = route.data['route'];  
+          if (res?.loggedIn || !res?.loggedIn) {
+            if (res?.loggedIn) {
+              if (pageRoute === 'dashboard') return true;
+                this.router.navigate(['dashboard']);
+              return null;
+            } else {
+              if (pageRoute === 'login') return true;
+              this.router.navigate(['login']);
+              return null;
+            }
+          } else {
+            if (res.error?.statusCode === 502) return false;
+            return null
+          }
+        }),
     )
   }
 }

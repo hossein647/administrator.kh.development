@@ -1,6 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { Subscription, take, tap, timer } from 'rxjs';
-import { LoginService } from '../login/login.service';
+import { Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Subscription, take, timer } from 'rxjs';
 import { SMS } from '../__interfaces/sms.interface'
 
 @Component({
@@ -18,9 +17,7 @@ export class AuthSmsComponent implements OnInit {
   @ViewChildren('verifyCode') verifyCodeInput: QueryList<ElementRef>;
 
 
-  constructor(
-    private loginService: LoginService,
-  ) { }
+  constructor() { }
 
 
 
@@ -38,7 +35,6 @@ export class AuthSmsComponent implements OnInit {
       otpPass: this.getValueFormVerify(),
       origin: 'adminPanel'
     }; 
-    console.log('isLastElement :', isLastElement);
        
     if (!isLastElement) parentInput.children[index].nextSibling.children[0].focus();
     else  {
