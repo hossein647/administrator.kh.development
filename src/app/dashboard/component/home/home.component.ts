@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../application/application.service';
 import { HomeService } from './home.service';
+import { DecimalPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
@@ -11,12 +13,11 @@ export class HomeComponent implements OnInit {
 
   cards: { title: string; num: number | string }[];
   chartData: any;
-  recitersLength = 0;
-  translationsLength = 0;
-  tafsirsLength = 0;
-  usersLength = 0;
-  price: number = 0;
-  total = 0;
+  recitersLength: number;
+  translationsLength: number;
+  tafsirsLength: number;
+  usersLength: number;
+  total: string;
   tafsirPerMonth: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(
@@ -26,12 +27,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.getPriceSubscription();
+    this.getTotalSales();
     this.getReciters();
     this.getTranslations();
     this.getTafsirs();
     this.getSuperUsers();
-    
     this.initCards();
     
   }
@@ -89,11 +89,11 @@ export class HomeComponent implements OnInit {
 
   initCards() {    
     this.cards = [
-      { title: 'قاری', num: this.recitersLength },
-      { title: 'ترجمه', num: this.translationsLength },
-      { title: 'تفسیر', num: this.tafsirsLength },
-      { title: 'کاربر ویژه', num: this.usersLength },
-      { title: 'فروش', num: this.total }
+      { title: 'قاری', num: this.recitersLength || 0 },
+      { title: 'ترجمه', num: this.translationsLength || 0 },
+      { title: 'تفسیر', num: this.tafsirsLength || 0 },
+      { title: 'کاربر ویژه', num: this.usersLength || 0 },
+      { title: 'فروش', num: this.total || 0 }
     ]
   }
 
@@ -141,8 +141,6 @@ export class HomeComponent implements OnInit {
     this.applicationService.superUsers().subscribe(
       res => {                
         if (res?.users) {
-          this.usersLength = res.users.length;        
-          this.total = this.usersLength * this.price;
           this.initCards(); // detect change value all cards after render view
         }
       }
@@ -151,11 +149,18 @@ export class HomeComponent implements OnInit {
 
 
 
-  getPriceSubscription() {
-    this.homeService.getPrice().subscribe(
-      res => {                
-        if (res?.subscription) this.price = Number(res.subscription.amount);        
+  getTotalSales() {
+    this.homeService.totalSales().subscribe({
+      next: (res: any) => {
+        if (res.pay.length) {
+          const totalRial: number = res.pay[0]?.total;          
+          const totalToman: number = +totalRial.toString().slice(0, -1);
+          this.total = totalToman.toLocaleString(); // 3digit separate
+          
+        }
+      },
+      error: (err) => {        
       }
-    )
+    })
   }
 }

@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
     
     if (sms) data = { ...sms, mobile: this.mobileNumber}    
     this.loginService.login(data).subscribe({
-      next: (res) => {
+      next: (res) => {        
         if (res.statusCode === 200 && res.admin) {
           this.router.navigate(['dashboard'])
         }
