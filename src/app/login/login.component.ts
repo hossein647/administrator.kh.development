@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   showMobileNumberInput = true;
   mobileNumber: string;
   submitDisabled = false;
+  otpPass: string = '';
 
 
   constructor(
@@ -69,13 +70,17 @@ export class LoginComponent implements OnInit {
   
   
   sendSMS(mobile: any) {
-      mobile.blur();
-      this.submitDisabled = true;
+    mobile.blur();
+    this.submitDisabled = true;
+    this.mobileNumber = '09149584922';
     this.loginService.getVerifyCode({ mobile: mobile.value }).subscribe(
       res => {
         mobile.focus();
         this.submitDisabled = false;
-        if (res.otpPass) this.showMobileNumberInput = false;
+        if (res.otpPass) {
+          this.showMobileNumberInput = false;
+          this.otpPass = res.otpPass;
+        }
         else {
           if (res.statusCode === 500) {
             this.errorGetCode = true;
@@ -96,12 +101,19 @@ export class LoginComponent implements OnInit {
     
     if (sms) data = { ...sms, mobile: this.mobileNumber}    
     this.loginService.login(data).subscribe({
-      next: (res) => {        
+      next: (res) => {  
+        
         if (res.statusCode === 200 && res.admin) {
           this.router.navigate(['dashboard'])
+        } else if (!res.verify || res.expire) {
+          console.log(res);
+          this.errorGetCode = true;
+          this.errorGetCodeMessage = res.message;
         }
       },
       error: (res) => {
+        console.log(res);
+        
         this.error = true;
         if (res?.error?.statusCode === 406) this.errorMessageLogin = res?.error?.message;
         if (res?.error?.statusCode === 403) this.errorMessageLogin = res?.error?.message;
@@ -115,6 +127,7 @@ export class LoginComponent implements OnInit {
   editMobileNumber() {
     this.showMobileNumberInput = true;
     this.error = false;
+    this.otpPass = '';
   }
 
 
