@@ -3,23 +3,22 @@
         <div class="card col-10 sm:col-8 md:col-7 lg:col-5 px-2 py-5 overflow-hidden relative">
             <div class="grid grid-nogutter flex flex-column align-items-center">
                 <div class="col-12 sm:col-9" [hidden]="!showMobileNumberInput">
-                        <input 
-                            type="text"
-                            pInputText 
-                            pKeyFilter="int" 
-                            class="w-full" 
-                            placeholder="شماره موبایل"
-                            maxlength="11"
-                            [disabled]="true"
-                            value="09149584922"
-                            (focus)="focusEnterMobile(input)" 
-                            (focusout)="focusOutEnterMobile(input)" 
-                            (input)="changeValueEnterMobile(input.value)"
-                            (keyup.enter)="onSubmit(input)"
-                            #input>
-                            <small *ngIf="error" class="text-red-400 font-bold">{{ errorLength }}</small>
-                            <small *ngIf="errorGetCode" class="text-red-400 font-bold">{{ errorGetCodeMessage }}</small>
-                            {{errorGetCode}}
+                    <input 
+                        type="text"
+                        pInputText 
+                        pKeyFilter="int" 
+                        class="w-full" 
+                        placeholder="شماره موبایل"
+                        maxlength="11"
+                        [disabled]="true"
+                        value="09149584922"
+                        (focus)="focusEnterMobile(input)" 
+                        (focusout)="focusOutEnterMobile(input)" 
+                        (input)="changeValueEnterMobile(input.value)"
+                        (keyup.enter)="onSubmit(input)"
+                        #input>
+                        <small *ngIf="error" class="text-red-400 font-bold">{{ errorLength }}</small>
+                        <small *ngIf="errorGetCode" class="text-red-400 font-bold">{{ errorGetCodeMessage }}</small>
                 </div>
                 <div class="col-12 sm:col-10 xl:col-8" [hidden]="showMobileNumberInput">
                     <app-auth-sms 
