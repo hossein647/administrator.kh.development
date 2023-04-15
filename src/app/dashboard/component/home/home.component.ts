@@ -141,6 +141,7 @@ export class HomeComponent implements OnInit {
     this.applicationService.superUsers().subscribe(
       res => {                
         if (res?.users) {
+          this.usersLength = res.users.length;
           this.initCards(); // detect change value all cards after render view
         }
       }
