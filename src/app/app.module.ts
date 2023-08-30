@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { ShareModule } from './shared/modules/share.module';
 import { LoginService } from './login/login.service';
 import { LoginResolver } from './login/login.resolver';
@@ -19,7 +18,6 @@ import { LoginResolver } from './login/login.resolver';
 ],
   imports: [
     ShareModule,
-    DashboardModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
