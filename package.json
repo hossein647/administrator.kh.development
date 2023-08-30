@@ -6,6 +6,7 @@
     "dev": "ng s",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng build && copy .htaccess .\\dist\\ && cd .\\dist && git init && git add . && git commit -m \"new build\" && git remote add origin https://github.com/hossein647/administrator.khoosheh.git && git push --force --set-upstream origin master",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
