@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShareModule } from './shared/modules/share.module';
 import { LoginService } from './login/login.service';
 import { LoginResolver } from './login/login.resolver';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { LoginResolver } from './login/login.resolver';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
+    HttpClientModule,
   ],
   providers: [LoginService, LoginResolver],
   bootstrap: [AppComponent]
